@@ -1,0 +1,58 @@
+/*@!Encoding:1252*/
+includes
+{
+  /* Leer */
+}
+
+
+/* Variablen anlegen */
+variables
+{
+  /*========================= Todo ==========================*/
+  /* Botschaft für die Buttons definieren */
+  message taster tasterMsg;
+  /*=========================================================*/
+}
+
+
+/* Startroutine ausführen*/
+on start
+{
+   /*========================= Todo ==========================*/
+   /* GUI beim Strat öffnen */
+   openPanel("Temperaturmessung");
+   /*=========================================================*/
+}
+
+
+/* Event auf Änderung des Wertes der Variable für den Start der Messung */
+/* Beim Anklicken des Buttons wird messung_stoppen=1 gesetzt*/
+/* Beim Loslassen des Buttons wird messung_stoppen=0 gesetzt*/
+on sysvar_update Temperaturmessung::messung_starten 
+{ 
+  /*========================= Todo ==========================*/
+  if(@Temperaturmessung::messung_starten==1)
+  {
+    /* Das Signal der Botschaft verändern */
+    tasterMsg.taster_signal = VtSig_taster_signal::messung_starten;  /* Wird das Tastersignal mit dem Signal 0x01 verschikt*/
+    /* Die Botschaft abschicken*/
+    output(tasterMsg);
+  }
+  /*=========================================================*/
+}
+
+/* Event auf Änderung des Wertes der Variable für das Beenden der Messung */
+/* Beim Anklicken des Buttons wird messung_stoppen=1 gesetzt*/
+/* Beim Loslassen des Buttons wird messung_stoppen=0 gesetzt*/
+on sysvar_update Temperaturmessung::messung_stoppen
+{
+  /*========================= Todo ==========================*/
+  if(@Temperaturmessung::messung_stoppen==1) 
+  {
+    /* Das Signal der Botschaft verändern */
+    tasterMsg.taster_signal = VtSig_taster_signal::messung_stoppen; /* Wird das Tastersignal mit dem Signal 0x01 verschikt*/
+    /* Die Botschaft abschicken*/
+    output(tasterMsg);
+  }
+  /*=========================================================*/
+}
